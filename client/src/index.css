@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+      font-family: Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+    body{
+      -moz-user-select: none !important;
+      -webkit-touch-callout: none!important;
+      -webkit-user-select: none!important;
+      -khtml-user-select: none!important;
+      -moz-user-select: none!important;
+      -ms-user-select: none!important;
+      user-select: none!important;
+      }
+  }
