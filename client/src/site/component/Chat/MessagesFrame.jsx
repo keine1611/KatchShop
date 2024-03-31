@@ -53,9 +53,11 @@ const MessagesFrame = () => {
     }
 
     const handleSendMessage = () => {
-        socket.emit('sendMessage', ({ senderId: 3, receiverId: 1, content: text }))
-        setMessages(prev => [...prev, { id_send: 3, id_receive: 1, content: text, timestamp: new Date() }])
-        setText('')
+        if(text  !== ''){
+            socket.emit('sendMessage', ({ senderId: 3, receiverId: 1, content: text }))
+            setMessages(prev => [...prev, { id_send: 3, id_receive: 1, content: text, timestamp: new Date() }])
+            setText('')
+        }
         
     }
 

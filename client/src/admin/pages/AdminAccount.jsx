@@ -4,7 +4,6 @@ import { MyToast } from '../components/Toast';
 import MaterialTable from 'material-table'
 import { ThemeProvider, createTheme, Avatar } from '@mui/material'
 import axios from 'axios'
-import { avatar } from '@material-tailwind/react';
 
 const CustomEditAvatar = ({ value, onChange }) => {
   const [avatar, setAvatar] = useState('/uploads/images/avatars/' + value)
@@ -24,7 +23,7 @@ const CustomEditAvatar = ({ value, onChange }) => {
   return (
     <div className='flex'>
       <Avatar src={avatar} style={{ width: '100px', height: '100px' }} />
-      <input className=' my-auto mx-2 file-input file-input-bordered w-full max-w-xs' type="file" accept="image/*" onChange={handleChange} />
+      <input className=' my-auto mx-2 file-input file-input-bordered w-fit' type="file" accept="image/*" onChange={handleChange} />
     </div>
   );
 };

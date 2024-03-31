@@ -38,12 +38,9 @@ const Sidebar = () => {
                 <div className="mb-2 p-4">
                     <Typography variant="h5" color="blue-gray">
                         <Link to={'/admin'}>
-                            <div className=' flex flex-row gap-2'>
-
+                            <div className=' flex flex-row gap-2'>s
                                 <img className=' h-12 w-12 object-contain block' src={process.env.PUBLIC_URL + '/logo_katchshop.png'} />
                                 <p className='my-auto'>Katch Shop</p>
-
-
                             </div>
                         </Link>
 
