@@ -15,8 +15,8 @@ const Chat = () => {
     return (
         <>
         {chatOpen?
-            (<div className=' fixed bottom-0 right-5 z-50 w-1/3 h-2/3 '>
-                <MessagesFrame></MessagesFrame>
+            (<div className=' fixed bottom-6 right-5 z-50 w-1/3 h-2/3 '>
+                <MessagesFrame handleStateChange={handleStateChange}></MessagesFrame>
             </div>)
             :<img onClick={() => handleStateChange()} className='hover:cursor-pointer h-14 object-fill fixed bottom-5 right-2' src={process.env.PUBLIC_URL + "/icon/chat.svg"}></img>
         }

@@ -3,13 +3,14 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useRef } from 'react'
 import Moment from 'react-moment'
+import RemoveIcon from '@mui/icons-material/Remove';
 import { useSocketContext } from '../../../admin/contexts/SocketChatContext'
 import { set } from 'react-hook-form'
 import { io } from 'socket.io-client'
 
 const socket = io('http://localhost:8080', { autoConnect: false })
 
-const MessagesFrame = () => {
+const MessagesFrame = ({handleStateChange}) => {
     const id = 3
     const [socketRecieveId, setSoketReceiveId] = useState(null)
     const [text, setText] = useState('')
@@ -38,13 +39,13 @@ const MessagesFrame = () => {
         }
     }, [])
 
-    useEffect(()=>{
-        function scrollToBottom(){
-            if(refMessages.current)
+    useEffect(() => {
+        function scrollToBottom() {
+            if (refMessages.current)
                 refMessages.current.scrollTop = refMessages.current.scrollHeight
         }
         scrollToBottom()
-    },[messages])
+    }, [messages])
 
     const handleConnectStaff = () => {
         if (!socket.connected)
@@ -53,26 +54,29 @@ const MessagesFrame = () => {
     }
 
     const handleSendMessage = () => {
-        if(text  !== ''){
+        if (text !== '') {
             socket.emit('sendMessage', ({ senderId: 3, receiverId: 1, content: text }))
             setMessages(prev => [...prev, { id_send: 3, id_receive: 1, content: text, timestamp: new Date() }])
             setText('')
         }
-        
+
     }
 
     return (
         <div className='bg-white rounded-t-3xl h-full'>
             <div className=' w-full h-fit bg-greyButton rounded-t-3xl py-5 px-2 flex flex-row justify-between'>
                 <p className='text-lg h-fit'>To: <span className=' text-black'>Staff</span></p>
-                <button onClick={handleConnectStaff} className=' border border-black rounded-md px-2 shadow-lg bg-white text-black hover:bg-blue-gray-200'>Connect Staff</button>
-            </div>
+                <div className=' flex  gap-3'>
+                    <button onClick={handleConnectStaff} className=' border border-black rounded-md px-2 shadow-lg bg-white text-black hover:bg-blue-gray-200  w-full'>Connect Staff</button>
+                    <RemoveIcon onClick={()=>handleStateChange()} className=' ml-4 hover:cursor-pointer rounded-full bg-white hover:bg-lightBlue'/>   
+                </div>
+             </div>
             <div className='px-10 mt-5 overflow-y-auto max-h-80 ' ref={refMessages}>
                 {messages.map((message) => {
                     if (message.id_send === id) {
                         return (
                             <div className="chat chat-end">
-                                <div className="chat-bubble text-sm bg-bgyellow text-black">{message.content}</div>
+                                <div className="chat-bubble text-sm bg-blue-800 text-white">{message.content}</div>
                                 <div className="chat-footer opacity-50">
                                     <time className=" text-xs opacity-50"><Moment fromNow>{message.timestamp.toString()}</Moment></time>
                                 </div>
@@ -87,7 +91,7 @@ const MessagesFrame = () => {
                                         <img alt="Tailwind CSS chat bubble component" src={'/uploads/images/avatars/avatar_default.jpg'} />
                                     </div>
                                 </div>
-                                <div className="chat-bubble text-sm bg-bgyellow text-black">{message.content}</div>
+                                <div className="chat-bubble text-sm bg-blue-gray-600 text-white">{message.content}</div>
                                 <div className="chat-footer opacity-50">
                                     <time className="text-xs opacity-50"><Moment fromNow>{message.timestamp.toString()}</Moment></time>
                                 </div>
