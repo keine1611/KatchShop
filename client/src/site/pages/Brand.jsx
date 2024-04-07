@@ -8,9 +8,9 @@ import PreLoading from '../component/PreLoading'
 const Brand = () => {
   const [arrBrand, setArrBrand] = useState([])
   const [loading, setLoading] = useState(true)
-  useEffect(()=>{
+  useEffect(() => {
     document.title = 'Brand'
-},[])
+  }, [])
 
   const getBrand = () => {
     axios.get('/api/brand')
@@ -31,15 +31,15 @@ const Brand = () => {
     <>
 
       <div className='w-full mt-[220px]'>
-        {loading ?<PreLoading></PreLoading> : 
-        <div>
-          <Breadcrumd />
-          <div className=' mt-10 grid lg:grid-cols-6 gap-4 md:grid-cols-4 grid-cols-3 w-3/4 flex-wrap  mx-auto '>
-            {arrBrand && arrBrand.map(function (value, index) {
-              return <BrandItem className='border-solid border-2 border-e-gray-500' key={value.id_brand} src={value.logo_brand} link={value.name_brand} />
-            })}
+        {loading ? <PreLoading></PreLoading> :
+          <div>
+            <Breadcrumd />
+            <div className=' mt-10 grid lg:grid-cols-6 gap-4 md:grid-cols-4 grid-cols-3 w-3/4 flex-wrap  mx-auto '>
+              {arrBrand && arrBrand.map(function (value, index) {
+                return <BrandItem className='border-solid border-2 border-e-gray-500' key={value.id_brand} src={value.logo_brand} link={value.name_brand} />
+              })}
+            </div>
           </div>
-        </div>
         }
 
       </div>

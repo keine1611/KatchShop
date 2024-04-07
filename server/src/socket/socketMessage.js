@@ -21,7 +21,7 @@ const io = new Server(server, {
     
 // })
 
-
+const CONNECTION_TIMEOUT = 15 * 60 * 1000; 
 const waitingCustomers = []
 const staffSockets = []
 const customerSockets = []
@@ -33,12 +33,14 @@ io.on('connection', (socket) => {
 
     socket.on('registerStaff', (id) => {
         const index = staffSockets.findIndex(staffSocket => staffSocket.id == id)
-        if (index !== -1) {
+        if (index !== -1) 
             staffSockets[index] = { id, socket: socket }
-        }
+        
         else
             staffSockets.push({ id, socket: socket })
         updateRequest()
+        staffGetConnections(id)
+
     })
 
     socket.on('requestChat', (id) => {
@@ -63,21 +65,22 @@ io.on('connection', (socket) => {
         const customerIndex = customerSockets.findIndex(customer => customer.socket.id === socket.id)
         if (customerIndex != -1) {
             customerSockets.splice(customerIndex, 1)
+            handleSocketDisconnect(customerSockets[customerIndex].id)
         }
 
         const staffIndex = staffSockets.findIndex(staff => staff.socket.id == socket.id)
         if (staffIndex != -1)
-            staffSockets.splice(staffIndex, 1)
+            staffSockets.splice(staffIndex, 1)  
     })
 
-    socket.on('acceptChatRequest',async customerId => {
+    socket.on('acceptChatRequest', async customerId => {
         const customerIndex = waitingCustomers.findIndex(customer => customer.id == customerId)
         let staff = staffSockets.find(staff => staff.socket.id == socket.id)
         if (customerIndex !== -1) {
             const customer = waitingCustomers.splice(customerIndex, 1)[0]
             io.to(customer.socket.id).emit('startChat', staff.id)
-            connectionsMap[staff.id] = customer.id
-            customerSockets.push[{ id: customer.id, socket: customer.socket }]
+            connectionsMap[customer.id] = staff.id
+            customerSockets.push(customer)
             const message = await MessageService.saveMessage({
                 id_receive: customer.id,
                 id_send: staff.id,
@@ -94,16 +97,18 @@ io.on('connection', (socket) => {
         const content = data.content
         if (senderId in connectionsMap) {
             const message = await MessageService.saveMessage({ id_send: senderId, id_receive: receiverId, content: content })
-            const index = customerSockets.findIndex(customer => customer.id === receiverID)
-            if (index !== -1) {
-                io.to(customerSockets[index].socket.id).emit('getMessage', message)
-            }
-        }
-        else {
-            const message = await MessageService.saveMessage({ id_send: senderId, id_receive: receiverId, content: content })
             const index = (staffSockets.findIndex(staff => staff.id === receiverId))
             if (index !== -1)
                 io.to(staffSockets[index].socket.id).emit('getMessage', message)
+        }
+        else{  
+             if(connectionsMap[receiverId] === senderId){
+                const message = await MessageService.saveMessage({ id_send: senderId, id_receive: receiverId, content: content })
+                const index = customerSockets.findIndex(customer => customer.id === receiverId)
+                if (index !== -1) {
+                    io.to(customerSockets[index].socket.id).emit('getMessage', message)
+                }
+            }
         }
 
     })
@@ -119,6 +124,48 @@ async function updateRequest() {
         io.to(staffSocket.socket.id).emit('newChatRequest', listRequest)
     })
 }
+
+
+function staffGetConnections(id){
+    const customer = []
+        Object.entries(connectionsMap).forEach(connect=>{
+            const [customerId, staffId] = connect
+            if(staffId == id)
+                customer.push(Number(customerId))
+        })
+    const staffSocket = staffSockets.find(staffSocket => staffSocket.id == id)
+    if(staffSocket)
+        io.to(staffSocket.socket.id).emit('getConnections', customer)
+}
+
+async function updateConnections(){
+    staffSockets.forEach(staffSocket=>{
+        const customer = []
+        Object.entries(connectionsMap).forEach(connect=>{
+            const [customerId, staffId] = connect
+            if(staffId == staffSocket.id)
+                customer.push(Number(customerId))
+        })
+        io.to(staffSocket.socket.id).emit('getConnectionss', customer)
+    })
+   
+}
+
+
+function handleSocketDisconnect(id) {
+    setTimeout(() => {
+        // Check if the socket is still connected
+        const customerIndex = customerSockets.findIndex(customer => customer.id == id)
+        if (customerIndex == -1) {
+            Object.entries(connectionsMap).map(entry=>{
+                const [customerId] = entry
+                if(customerId == id)
+                    delete connectionsMap[id]
+            })
+        }
+    }, CONNECTION_TIMEOUT)
+}
+
 
 
 

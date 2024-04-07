@@ -137,7 +137,6 @@ const SiteNavbar = () => {
                         <p className=' font-medium text-[14px] text-ellipsis line-clamp-1'>{item.name_prd}</p>
                         <p className='font-thin text-gray-700 text-[12px]'>${item.price_prd.toLocaleString()}</p>
                       </div>
-                      
                     </div>)}
                   </div>
                 </div>

@@ -9,7 +9,7 @@ const Conversation = ({ conversations, setCurrentConversation, curentConversatio
 
     const [notificationState, setNotificationState] = useState(false)
 
-
+    
 
     return (
         <div className='col-span-4 bg-white rounded-tl-3xl border-r-2 border-black p-10'>
@@ -41,9 +41,10 @@ const Conversation = ({ conversations, setCurrentConversation, curentConversatio
             <div className='my-9 w-full h-[0.5px] bg-blue-gray-900'></div>
             <div className=''>
                 {conversations.map((conver) => {
+                    console.log(conver)
                     return (
                         <div onClick={() => handleConversationClick(conver.id)} key={conver.id} className={`flex flex-row items-center gap-4 my-2 rounded-full px-2 py-2 hover:cursor-pointer hover:bg-lightBlue duration-500 ${conver.id === curentConversation ? 'bg-lightBlue' : 'bg-white'}`}>
-                            <div className="avatar online">
+                            <div className={`avatar ${conver.connect? 'online':''}`}>
                                 <div className="w-12 rounded-full">
                                     <img src={'/uploads/images/avatars/' + conver.otherAccount.avatar_acc} />
                                 </div>

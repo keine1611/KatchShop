@@ -15,6 +15,7 @@ const Checkout = () => {
   const [subTotal, setSubtotal] = useState(0)
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
+
   useEffect(()=>{
     document.title = 'Checkout'
 },[])
@@ -50,7 +51,6 @@ const Checkout = () => {
     setPriceShip(Number(e.target.value))
   }
 
-  const auth = useAuth()
 
   return (
   <>
@@ -91,7 +91,7 @@ const Checkout = () => {
             <p className="text-xl font-medium">Order Summary</p>
             <p className="text-gray-400">Check your items. And select a suitable shipping method.</p>
             <div className="mt-2 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6 h-80 overflow-y-auto">
-              {state.map(function (product, index) {
+              {state && state.map(function (product, index) {
                 return (
                   <div key={product.id_prd} className="flex flex-col rounded-lg bg-white sm:flex-row">
                     <img className="m-2 h-24 w-24 rounded-md border object-cover object-center" src={process.env.PUBLIC_URL + '/image/watch/' + product.product.main_img_prd} alt="" />

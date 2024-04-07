@@ -10,7 +10,7 @@ import { io } from 'socket.io-client'
 
 const socket = io('http://localhost:8080', { autoConnect: false })
 
-const MessagesFrame = ({handleStateChange}) => {
+const MessagesFrame = ({ handleStateChange }) => {
     const id = 3
     const [socketRecieveId, setSoketReceiveId] = useState(null)
     const [text, setText] = useState('')
@@ -28,6 +28,7 @@ const MessagesFrame = ({handleStateChange}) => {
 
         socket.on('startChat', () => {
         })
+
         socket.on('getMessage', message => {
             setMessages(prev => [...prev, message])
         })
@@ -68,9 +69,9 @@ const MessagesFrame = ({handleStateChange}) => {
                 <p className='text-lg h-fit'>To: <span className=' text-black'>Staff</span></p>
                 <div className=' flex  gap-3'>
                     <button onClick={handleConnectStaff} className=' border border-black rounded-md px-2 shadow-lg bg-white text-black hover:bg-blue-gray-200  w-full'>Connect Staff</button>
-                    <RemoveIcon onClick={()=>handleStateChange()} className=' ml-4 hover:cursor-pointer rounded-full bg-white hover:bg-lightBlue'/>   
+                    <RemoveIcon onClick={() => handleStateChange()} className=' ml-4 hover:cursor-pointer rounded-full bg-white hover:bg-lightBlue' />
                 </div>
-             </div>
+            </div>
             <div className='px-10 mt-5 overflow-y-auto max-h-80 ' ref={refMessages}>
                 {messages.map((message) => {
                     if (message.id_send === id) {

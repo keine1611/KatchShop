@@ -59,15 +59,23 @@ export const AuthProvider = ({ children }) => {
     const logOut = async () => {
         localStorage.removeItem('user')
         localStorage.removeItem('cart')
-        console.log(user)
-        axios.post('/api/cart/update/'+user.user.customer.id_cus, cartItems)
-        .then((result) => {
+        if(user.auth && user.user.role_acc === 'customer'){
+            axios.post('/api/cart/update/'+user.user.customer.id_cus, cartItems)
+            .then((result) => {
+                setUser({
+                    auth: false,
+                    user: {}
+                })
+                setCartItems([])
+            })
+        }
+        else{
             setUser({
                 auth: false,
                 user: {}
             })
             setCartItems([])
-        })
+        }
     }
     return (
         <AuthContext.Provider value={{ user, setUser, getCurrentUser, login, logOut,register}}>{children}</AuthContext.Provider>
