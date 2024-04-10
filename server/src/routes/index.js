@@ -11,6 +11,7 @@ const cartRouter = require('./cart')
 const messageRouter = require('./message')
 const ImageResourceRouter = require('./imageResource')
 const ConversationRouter = require('./conversation')
+const commentRouter = require('./comment')
 
 
 function route(app){
@@ -27,6 +28,7 @@ function route(app){
     app.use('/api/message',messageRouter)
     app.use('/api/imageresource', ImageResourceRouter)
     app.use('/api/conversation', ConversationRouter)
+    app.use('/api/comments', commentRouter)
 }
 
 module.exports = route

@@ -124,9 +124,9 @@ const SiteNavbar = () => {
             </div>
           </div>
           <div className='mt-4 gap-3 justify-around w-fit flex flex-row items-end'>
-            <div className=' flex flex-row relative h-fit w-full px-4 py-2 border-[1px] border-gray-200 shadow-md rounded-lg'>
+            <div className=' flex flex-row relative items-center h-fit w-full px-4 py-2 border-[1px] border-gray-200 shadow-md rounded-lg'>
               <SearchOutlinedIcon className='hover:cursor-pointer'></SearchOutlinedIcon>
-              <input className=' w-full outline-none px-2 bg-white' type='text' value={textSearch} onChange={(e) => handleSearchChange(e)} />
+              <input className='w-full outline-none ps-2 focus:border-none border-none px-2 py-0 bg-white' type='text' value={textSearch} onChange={(e) => handleSearchChange(e)} />
               {textSearch.length != 0 && searchData.length !=0 && <>
                 <div className='absolute bg-white rounded-md right-0 left-0 -bottom-2 translate-y-full h-fit'>
                   <div className='p-1 overflow-y-auto max-h-80'>

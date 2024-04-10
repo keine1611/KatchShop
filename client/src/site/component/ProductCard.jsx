@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCartContext } from '../../context/CartContext'
 import { useAuth } from '../../context/AuthContext'
+import image from '../../api/image'
 
 
 
@@ -24,7 +25,7 @@ const ProductCard = ({ product }) => {
             <Link to={'/products/' + product.id_prd}>
                 <div className="relative mx-4 mt-4 h-52  justify-items-center overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
                     <img
-                        src={process.env.PUBLIC_URL + '/image/watch/' + product.main_img_prd}
+                        src={image.watch+ product.main_img_prd}
                         className="h-full w-full object-cover"
                     />
                 </div>

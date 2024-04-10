@@ -1,7 +1,10 @@
 const withMT = require("@material-tailwind/react/utils/withMT");
  
 module.exports = withMT({
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    'node_modules/flowbite-react/lib/esm/**/*.js'
+  ],
   theme: {
     fontFamily:{
       Pacifico:['Dancing Script', 'cursive'],
@@ -19,7 +22,9 @@ module.exports = withMT({
       addVariant('child', '& > *');
       addVariant('child-hover', '& > *:hover');
     },
-    require('daisyui')
+    // require('daisyui'),
+    require('flowbite/plugin')
+
   ],
   daisyui: {
     themes: ["light", "dark", "cupcake","fantasy"],

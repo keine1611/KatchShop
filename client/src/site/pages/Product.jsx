@@ -3,7 +3,8 @@ import ProductComponent from '../component/ProductPage/Product'
 import { useLocation, useParams } from 'react-router-dom'
 import Breadcrumd from '../component/Breadcrumd'
 import PreLoading from '../component/PreLoading'
-import { get } from 'react-hook-form'
+import CommentBox from '../component/comment/CommentBox'
+import CommentIndex from '../component/comment/CommentIndex'
 
 
 const Product = () => {
@@ -32,6 +33,7 @@ const Product = () => {
       <div>
         <Breadcrumd/>
         <ProductComponent idProduct={id}/>
+        <CommentIndex idProduct={id}/>
       </div>
     </div>}
     </>
