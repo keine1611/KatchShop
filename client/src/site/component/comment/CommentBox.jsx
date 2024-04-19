@@ -2,42 +2,61 @@ import React, { useState } from 'react'
 import RatingStartChoose from './RatingStartChoose'
 
 import * as commentApi from '../../../api/comment'
-import {useAuth} from '../../../context/AuthContext'
+import { useAuth } from '../../../context/AuthContext'
+import { MyToast } from '../../../admin/components/Toast'
 
-const CommentBox = (idProduct) => {
+const CommentBox = ({ idProduct, setComments }) => {
 
     const [starNum, setStarNum] = useState(0)
     const [contentComment, setContentComment] = useState('')
-    const {user} = useAuth()
+    const [title, setTitle] = useState('')
+    const { user } = useAuth()
 
-    const handleSendComment = ()=>{
-        if(starNum === 0 || contentComment.trim() === '')
+    const handleSendComment = () => {
+        if (starNum === 0 || contentComment.trim() === '')
             return
-        commentApi.saveComment({
-            id_prd:idProduct,
+        commentApi.saveComment({    
+            id_prd: idProduct,
             id_cus: user.user.customer.id_cus,
             content: contentComment,
-            stars: starNum
+            stars: starNum,
+            title: title
         })
+            .then((result) => {
+                setContentComment('')
+                setStarNum(0)
+                setTitle('')
+                MyToast('success', 'Commented')
+                setComments(prev => [...prev, result.data])
+
+            }).catch((err) => {
+                MyToast('error', 'Comment failed')
+            });
     }
 
-    const handleContentCommentChange = (e)=>{
+    const handleContentCommentChange = (e) => {
         setContentComment(e.target.value)
     }
-    
+
 
 
     return (
-        <form onSubmit={(e) => { e.preventDefault();handleSendComment()}}>
+        <form onSubmit={(e) => { e.preventDefault(); handleSendComment() }}>
             <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                 <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                    <div>
+                        <div>
+                            <label for="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tilte</label>
+                            <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" id="title" className="bg-gray-50  border-b border-x-0 border-t-0 border-gray-300 text-gray-900 text-sm focus:border-black block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-0 dark:focus:border-black dark:focus:border-x-0 focus:border-x-0" placeholder="Title" required />
+                        </div>
+                    </div>
                     <label htmlFor="comment" className="sr-only">Your comment</label>
-                    <textarea value={contentComment} onChange={(e)=>handleContentCommentChange(e)} id="comment" rows="4" className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required />
+                    <textarea value={contentComment} onChange={(e) => handleContentCommentChange(e)} id="comment" rows="4" className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required />
                     <RatingStartChoose starNum={starNum} setStarNum={setStarNum}></RatingStartChoose>
 
                 </div>
                 <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                    <button type="submit" className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                    <button type="submit" className="inline-flex items-center py-2.5 px-4 text-xs text-center text-black bg-greyButton font-medium rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-bluee">
                         Post comment
                     </button>
                     <div className="flex ps-0 space-x-1 rtl:space-x-reverse sm:ps-2">

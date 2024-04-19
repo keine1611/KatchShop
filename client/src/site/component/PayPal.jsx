@@ -2,7 +2,11 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import React from "react";
 import { MyToast } from "../../admin/components/Toast";
 import { useAuth } from "../../context/AuthContext";
+import ReactDOMServer from 'react-dom/server';
 import axios from "axios";
+import ConfirmOrder from "../../admin/components/MailTemplate/ConfirmOrder";
+import emailjs from '@emailjs/browser'
+
 
 const PayPalComponent = ({ amount, orderItem }) => {
 
@@ -60,20 +64,35 @@ const PayPalComponent = ({ amount, orderItem }) => {
               amount: amount
             }
             axios.post('/api/order/createorder', { data: dataSend })
-              .then(res => MyToast('success', 'Order successfully'))
-              .catch((err)=>{
+              .then(res => {
+                const content = ReactDOMServer.renderToString(<ConfirmOrder orderItem={orderItem}/>)
+                emailjs.send('service_sj4dakg', 'template_r6v3et1', {
+                  message: content,
+                  to: 'anh7500@gmail.com',
+                  subject: 'ORDER CONFIRM',
+                },'yM9CDId3lgPi-yrBZ').then(
+                  (response) => {
+                    console.log(response)
+                  },
+                  (error) => {
+                    console.log(error)
+                  },
+                );
+                MyToast('success', 'Order successfully')
+              })
+              .catch((err) => {
                 MyToast('error', 'Order failed')
               })
           });
         }}
-        onCancel={(data, actions)=>{
+        onCancel={(data, actions) => {
           MyToast('error', 'Payment canceled')
-          }
         }
-        onError={(data, actions)=>{
+        }
+        onError={(data, actions) => {
           MyToast('error', 'Payment error')
         }}
-        
+
       />
     </PayPalScriptProvider>
   );

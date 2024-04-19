@@ -117,12 +117,18 @@ const Sidebar = () => {
                                     </ListItemPrefix>
                                     Orders
                                 </ListItem>
-                                <ListItem onClick={() => navigate('/admin/order')}>
+                                <ListItem onClick={() => navigate('/admin/advertisement')}>
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                     </ListItemPrefix>
-                                    Revenue
+                                    Advertisement
                                 </ListItem>
+                                <ListItem onClick={() => navigate('/admin/statistical')}>
+                                    <ListItemPrefix>
+                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                    </ListItemPrefix>
+                                    Statistical
+                                </ListItem> 
                             </List>
                         </AccordionBody>
                     </Accordion>

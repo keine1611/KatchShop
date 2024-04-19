@@ -26,6 +26,8 @@ import Chat from './site/component/Chat/Chat'
 import Chatt from './admin/components/Chat/AdminChat'
 import { SocketContextProvider } from './admin/contexts/SocketChatContext'
 import AdminChat from './admin/components/Chat/AdminChat'
+import AdminAdvertisement from './admin/pages/AdminAdvertisement'
+import AdminStatistical from './admin/pages/AdminStatistical'
 
 
 const AdminLayout = () => {
@@ -107,6 +109,14 @@ function App() {
           path: 'chat',
           element: <AdminChat/>
         },
+        {
+          path: 'advertisement',
+          element: <AdminAdvertisement/>
+        },
+        {
+          path: 'statistical',
+          element: <AdminStatistical/>
+        }
       ]
     },
     {

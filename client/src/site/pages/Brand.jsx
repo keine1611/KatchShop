@@ -4,6 +4,7 @@ import axios from 'axios'
 import BrandItem from '../component/BrandItem'
 import Breadcrumd from '../component/Breadcrumd'
 import PreLoading from '../component/PreLoading'
+import ConfirmOrder from '../../admin/components/MailTemplate/ConfirmOrder'
 
 const Brand = () => {
   const [arrBrand, setArrBrand] = useState([])
@@ -40,8 +41,10 @@ const Brand = () => {
               })}
             </div>
           </div>
+          
         }
 
+      
       </div>
     </>
   )

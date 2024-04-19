@@ -8,6 +8,7 @@ module.exports = withMT({
   theme: {
     fontFamily:{
       Pacifico:['Dancing Script', 'cursive'],
+      Playfair:["Playfair Display", 'serif']
     },
     colors: {
       transparent: 'transparent',
@@ -22,8 +23,8 @@ module.exports = withMT({
       addVariant('child', '& > *');
       addVariant('child-hover', '& > *:hover');
     },
-    // require('daisyui'),
-    require('flowbite/plugin')
+    require('daisyui'),
+    // require('flowbite/plugin')
 
   ],
   daisyui: {

@@ -17,20 +17,24 @@ exports.findAll = (req, res) => {
 };
 
 exports.create = async (req, res) => {
+  try {
     comment = {
       content: req.body.content,
       stars: req.body.stars,
       id_cus: req.body.id_cus,
-      id_prd: req.body.id_prd
+      id_prd: req.body.id_prd,
+      title: req.body.title
     }
-    Comment.create(comment)
-    .then((result) => {
-      res.status(200).send(result)
-    }).catch((err) => {
-      res.status(500).send({
-        message: err
-      })
+    const cmt_id = await Comment.create(comment)
+    const cmt = await Comment.findByPk(cmt_id.id,{include:[
+      {model:db.customer, include:[{model:db.account,attributes:['avatar_acc']}], attributes:['name_cus']}
+    ]})
+    res.status(200).send(cmt)
+  } catch (error) {
+    res.status(500).send({
+      message: error
     })
+  }
 };
 
 exports.getProductComment = async (req, res)=>{
