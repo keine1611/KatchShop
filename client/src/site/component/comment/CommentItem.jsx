@@ -1,6 +1,6 @@
 import React from 'react'
 import RatingStar from './RatingStar'
-import imageApi from '../../../api/image'
+import * as imageApi from '../../../api/image'
 import Moment from 'react-moment'
 
 

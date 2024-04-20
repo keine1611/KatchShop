@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale } from 'chart.js';
+import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip } from 'chart.js';
 import api from '../../api';
 
-ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale);
+ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip);
 
 
 const Revenue = ({ days }) => {
@@ -31,34 +31,81 @@ const Revenue = ({ days }) => {
 
 
     return (
-        <Line className='' data={{
-            labels: chartData.labels,
-            datasets: [{
-                label: "REVENUE",
-                data: chartData.data,
-                borderWidth: 1,
-                backgroundColor: '#000000',
-                borderColor: '#000000',
-                fill: true,
-            }]
-        }}
+        <Line className=''
+            data={{
+                labels: chartData.labels,
+                datasets: [{
+                    data: chartData.data,
+                    borderWidth: 1,
+                    backgroundColor: '#1976d2',
+                    borderColor: '#3080d0',
+                    fill: false,
+                }]
+            }}
             options={{
                 plugins: {
-                    
+                    tooltip: {
+                        callbacks: {
+                            title: function (event) {
+                                return event.label;
+                            },
+                            label: function (context) {
+                                let label = context.dataset.label || '';
+
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
+                    },
                     title: {
                         display: true,
-                        text: 'Estimated revenue\n' + '$' + total.toLocaleString()
-                    },
-                   
+                        text: 'Estimated revenue\n' + '$' + total.toLocaleString(),
+                        position: 'top',
 
-                }
-            }}></Line>
+                    },
+                },
+
+            }}
+
+
+        ></Line>
 
     )
 }
-const BestSale = () => {
+const BestSale = ({ days }) => {
+    const [watches, setWatches] = useState([])
+
+    useEffect(() => {
+        api.orderApi.getBestSale(days)
+            .then((result) => {
+                setWatches(result.data)
+            })
+    }, [days])
+
     return (
-        <div>BestSale</div>
+        <div className=' w-full px-10'>
+            {watches.map((watch, index) => {
+                return (
+                    <div className=' flex flex-row items-center gap-5 mt-5'>
+                        <span className=' text-white font-bold p-2 bg-black rounded-full '>{index + 1}</span>
+                        <div className='flex-1 flex-row flex gap-5'>
+                            <img className=' w-24 h-24 object-cover rounded-md' src={api.imageApi.watch + watch.image}/>
+                            <div className=' flex-1'>
+                                <p className=' text-black font-bold text-md'>{watch.name}</p>
+                                <p className=' text-gray-700'>$ {watch.price.toLocaleString()}</p>
+                            </div>
+                            <div>
+                                <p className=' text-gray-700'>{watch.total_quantity_sold}</p>
+                            </div>
+                        </div>
+                    </div>)
+            })}
+        </div>
     )
 }
 

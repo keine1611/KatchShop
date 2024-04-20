@@ -68,7 +68,7 @@ const PayPalComponent = ({ amount, orderItem }) => {
                 const content = ReactDOMServer.renderToString(<ConfirmOrder orderItem={orderItem}/>)
                 emailjs.send('service_sj4dakg', 'template_r6v3et1', {
                   message: content,
-                  to: 'anh7500@gmail.com',
+                  to: auth.user.user.customer.email_cus,
                   subject: 'ORDER CONFIRM',
                 },'yM9CDId3lgPi-yrBZ').then(
                   (response) => {

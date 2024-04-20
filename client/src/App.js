@@ -28,6 +28,7 @@ import { SocketContextProvider } from './admin/contexts/SocketChatContext'
 import AdminChat from './admin/components/Chat/AdminChat'
 import AdminAdvertisement from './admin/pages/AdminAdvertisement'
 import AdminStatistical from './admin/pages/AdminStatistical'
+import Profile from './site/pages/Profile'
 
 
 const AdminLayout = () => {
@@ -141,7 +142,7 @@ function App() {
         },
         {
           path: 'products',
-          element: <ProductList />
+          element: <ProductList/>
         },
         {
           path:'products/:id',
@@ -150,6 +151,10 @@ function App() {
         {
           path: 'my-order',
           element: <Order/>
+        },
+        {
+          path: 'profile',
+          element: <Profile/>
         }
       ],  
     },

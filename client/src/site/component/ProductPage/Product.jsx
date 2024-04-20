@@ -47,7 +47,7 @@ const Product = ({ idProduct }) => {
                     <div>
                         <div class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
                             <div className="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                                {product.images && product.images.length !== 0 && <img className='h-64 md:h-80' src={imageApi.default.watch+ product.images[imgActive].url_img} />}
+                                {product.images && product.images.length !== 0 && <img className='h-64 md:h-80' src={imageApi.watch+ product.images[imgActive].url_img} />}
                             </div>
                         </div>
 
@@ -55,11 +55,11 @@ const Product = ({ idProduct }) => {
                             {product.images && product.images.map((item, index) => {
                                 if (index === imgActive)
                                     return (<button key={item.id_img} onClick={() => HandleButtonImgClick(index)} className='ring-2 ring-indigo-300 ring-inset h-24 md:h-32 '>
-                                        <img className=' object-cover h-4/5' src={imageApi.default.watch + item.url_img} />
+                                        <img className=' object-cover h-4/5' src={imageApi.watch + item.url_img} />
                                     </button>)
                                 else
                                     return (<button key={item.id_img} onClick={() => HandleButtonImgClick(index)} className="focus:outline-none rounded-lg h-24 md:h-32 bg-gray-100 flex items-center justify-center">
-                                        <img className=' object-cover h-4/5' src={imageApi.default.watch + item.url_img} />
+                                        <img className=' object-cover h-4/5' src={imageApi.watch + item.url_img} />
                                     </button>)
 
                             })}

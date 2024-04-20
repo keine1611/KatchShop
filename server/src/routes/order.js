@@ -3,6 +3,7 @@ const router = express.Router()
 const OrderController = require('../app/controllers/OrderController')
 
 router.get('/revenue-last-days', OrderController.getRevenueLastDays)
+router.get('/get-top-products', OrderController.getTopMostSoldProducts)
 router.post('/createorder',OrderController.createOrder)
 router.put('/:id', OrderController.update)
 router.delete('/:id', OrderController.delete )

@@ -1,5 +1,3 @@
-export default {
-    avatar: '/uploads/images/avatars/',
-    brand: '/uploads/images/brands/',
-    watch: '/uploads/images/watches/'
-}
+export const avatar = '/uploads/images/avatars/'
+export const brand = '/uploads/images/brands/'
+export const watch = '/uploads/images/watches/'

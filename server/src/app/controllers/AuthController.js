@@ -64,6 +64,10 @@ exports.login = (req,res)=>{
 
 }
 
+exports.changeProfile = (req, res)=>{
+}
+
+
 exports.logout = (req,res)=>{
     res.clearCookie('access_token',{
         samSite:'none',
