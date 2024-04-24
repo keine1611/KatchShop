@@ -3,16 +3,18 @@ import * as imageApi from './image'
 import * as commentApi from './comment'
 import * as customerApi from './customer'
 import * as orderApi from './order'
+import * as authApi from './auth'
+
 
 
 
 const api = {
-    productApi: productApi,
-    imageApi: imageApi,
-    commentApi: commentApi,
-    customerApi: customerApi,
-    orderApi: orderApi
-
+    productApi,
+    imageApi,
+    commentApi,
+    customerApi,
+    orderApi,
+    authApi
 }
 
 export default api

@@ -99,7 +99,7 @@ const AdminAdvertisement = () => {
           <div className='mt-4 max-h-[500px] overflow-y-auto'>
             {watchesSelected.map((watch) => (
               <div key={watch.id_prd} className="card w-full bg-base-100 shadow-xl image-full mt-5 max-h-60  ">
-                <figure><img src={api.imageApi.default.watch + watch.main_img_prd} alt="watch" /></figure>
+                <figure><img src={api.imageApi.watch+ watch.main_img_prd} alt="watch" /></figure>
                 <div className="card-body">
                   <h2 className="card-title line-clamp-2">{watch.name_prd}</h2>
                   <p className=' line-clamp-3'>{watch.description_prd.toString()}</p>

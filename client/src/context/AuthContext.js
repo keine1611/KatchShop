@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState, useRef, useCallback } from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { Navigate, json } from 'react-router-dom'
 import { useCartContext } from './CartContext'
 
 

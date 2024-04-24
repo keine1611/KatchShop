@@ -64,13 +64,10 @@ const ProtectedRoute = ({
   redirectPath = '/',
   children,
 }) => {
-  const AuthContext = useAuth()
-  const {user} = AuthContext
-  console.log(user)
+  const {user} = useAuth()
   if (user.user.role_acc !== isAllowed) {
     return <Navigate to={redirectPath} replace />;
   }
-
   return children ? children : <Outlet />;
 };
 
@@ -150,17 +147,17 @@ function App() {
         },
         {
           path: 'my-order',
-          element: <Order/>
+          element: <ProtectedRoute isAllowed={'customer'}><Order/></ProtectedRoute>
         },
         {
           path: 'profile',
-          element: <Profile/>
+          element: <ProtectedRoute isAllowed={'customer'}><Profile/></ProtectedRoute>
         }
       ],  
     },
     {
       path:'/checkout',
-      element:<Checkout/>
+      element: <ProtectedRoute isAllowed={'customer'}><Checkout/></ProtectedRoute>
     }
     
   ])

@@ -13,12 +13,12 @@ const AdvertisementTemplate = ({watchesSelected}) => {
         </div>
         <div className=''>
           <h1 className=' font-Pacifico font-extrabold text-2xl text-center py-2 border-b border-gray-700 w-fit mx-auto'>Top Offers</h1>
-          <div className=' flex flex-row flex-wrap'>
+          <div className=' flex flex-row flex-wrap gap-2'>
             {watchesSelected.map(watch => {
               return (
                 <div key={watch.id_prd} className="card w-52 bg-base-100 shadow-xl">
                   <figure className="px-10 pt-10">
-                    <img src={api.imageApi.default.watch + watch.main_img_prd} alt="Watch" className="rounded-xl" />
+                    <img src={api.imageApi.watch + watch.main_img_prd} alt="Watch" className="rounded-xl" />
                   </figure>
                   <div className="card-body items-center text-center">
                     <h2 className="card-title">{watch.name_prd}</h2>

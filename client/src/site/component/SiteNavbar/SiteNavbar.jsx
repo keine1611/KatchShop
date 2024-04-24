@@ -151,7 +151,12 @@ const SiteNavbar = () => {
               <Dropdown>
                 <MenuButton><PermIdentityOutlinedIcon className='hover:cursor-pointer'></PermIdentityOutlinedIcon></MenuButton>
                 <Menu style={{ zIndex: 100 }} slots={{ listbox: Listbox }}>
-                  {auth.user.auth && <MenuItem onClick={() => handleOrderClick()}>Orders</MenuItem>}
+                  {auth.user.auth && 
+                  <>
+                    <MenuItem onClick={() => handleOrderClick()}>Orders</MenuItem>
+                    <MenuItem onClick={() => navigate('/profile',{replace: false})}>Profile</MenuItem>
+                  </>}
+                    
                   {(auth.user.auth) ? (<MenuItem onClick={() => handleLogoutClick()}>Log out</MenuItem>)
                     : <MenuItem onClick={() => navigate('/login', { replace: true })} >Sign in</MenuItem>
                   }
