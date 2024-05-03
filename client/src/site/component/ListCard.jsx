@@ -20,7 +20,7 @@ const ListCard = () => {
   return (
     <div className=' w-full px-20 mx-auto mt-10'>
         <div className='grid lg:grid-cols-4 gap-10 md:grid-cols-3 grid-cols-1 justify-items-center'>
-        {Data.searchParams && Data.searchParams.map(function(value, index){
+        {Data.data && Data.data.map(function(value, index){
           return(loading ? <SkeletonProduct></SkeletonProduct> : <ProductCard key={value.id_prd} product={value} />)
         })}
         </div>

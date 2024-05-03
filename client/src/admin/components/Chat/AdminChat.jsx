@@ -20,7 +20,7 @@ const AdminChat = () => {
         if (!socket.connected) {
             socket.connect()
         }
-        socket.emit('registerStaff', 1)
+        socket.emit('registerStaff', id)
 
         socket.on('newChatRequest', listRequest => {
             setCustomerRequestChat(listRequest)

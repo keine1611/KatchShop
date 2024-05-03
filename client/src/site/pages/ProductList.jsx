@@ -1,16 +1,21 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from 'react'
 import ListCard from '../component/ListCard'
 import Breadcrumd from '../component/Breadcrumd'
+import FilterProduct from '../component/FilterProduct'
 const ProductList = () => {
-  useEffect(()=>{
+  useEffect(() => {
     document.title = 'Product'
-},[])
+  }, [])
   return (
     <div className='w-full mt-[220px]'>
-      <Breadcrumd></Breadcrumd>
-       <ListCard />
+      <div className=' w-full flex flex-row justify-between items-center'>
+        <Breadcrumd></Breadcrumd>
+        <FilterProduct></FilterProduct>
+      </div>
+
+      <ListCard />
     </div>
-   
+
   )
 }
 

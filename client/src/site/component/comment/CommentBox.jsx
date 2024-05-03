@@ -51,7 +51,7 @@ const CommentBox = ({ idProduct, setComments }) => {
                         </div>
                     </div>
                     <label htmlFor="comment" className="sr-only">Your comment</label>
-                    <textarea value={contentComment} onChange={(e) => handleContentCommentChange(e)} id="comment" rows="4" className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required />
+                    <textarea value={contentComment} onChange={(e) => handleContentCommentChange(e)} id="comment" rows="4" className="w-full px-0 text-sm mt-4 px-2 text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required />
                     <RatingStartChoose starNum={starNum} setStarNum={setStarNum}></RatingStartChoose>
 
                 </div>

@@ -7,19 +7,20 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { useSocketContext } from '../../../admin/contexts/SocketChatContext'
 import { set } from 'react-hook-form'
 import { io } from 'socket.io-client'
+import { useAuth } from '../../../context/AuthContext'
 
 const socket = io('http://localhost:8080', { autoConnect: false })
 
 const MessagesFrame = ({ handleStateChange }) => {
-    const id = 3
     const [socketRecieveId, setSoketReceiveId] = useState(null)
     const [text, setText] = useState('')
     const [messages, setMessages] = useState([])
     const [realTimeEnabled, setRealTimeEnabled] = useState(false)
     const refMessages = useRef()
+    const {user} = useAuth()
 
     useEffect(() => {
-        axios.get('/api/message/' + id)
+        axios.get('/api/message/' + user.user.id_acc)
             .then((result) => {
                 setMessages(result.data)
             }).catch((err) => {
@@ -51,7 +52,7 @@ const MessagesFrame = ({ handleStateChange }) => {
     const handleConnectStaff = () => {
         if (!socket.connected)
             socket.connect()
-        socket.emit('requestChat', id)
+        socket.emit('requestChat', user.user.id_acc)
     }
 
     const handleSendMessage = () => {
@@ -72,9 +73,9 @@ const MessagesFrame = ({ handleStateChange }) => {
                     <RemoveIcon onClick={() => handleStateChange()} className=' ml-4 hover:cursor-pointer rounded-full bg-white hover:bg-lightBlue' />
                 </div>
             </div>
-            <div className='px-10 mt-5 overflow-y-auto max-h-80 ' ref={refMessages}>
+            <div className='px-10 mt-5 overflow-y-auto h-80 max-h-80 ' ref={refMessages}>
                 {messages.map((message) => {
-                    if (message.id_send === id) {
+                    if (message.id_send === user.user.id_acc) {
                         return (
                             <div className="chat chat-end">
                                 <div className="chat-bubble text-sm bg-blue-800 text-white">{message.content}</div>

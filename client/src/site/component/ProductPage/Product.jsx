@@ -36,9 +36,6 @@ const Product = ({ idProduct }) => {
         setImgActive(index)
     }
 
-
-
-
     return (
     <div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
@@ -47,7 +44,7 @@ const Product = ({ idProduct }) => {
                     <div>
                         <div class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
                             <div className="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                                {product.images && product.images.length !== 0 && <img className='h-64 md:h-80' src={imageApi.watch+ product.images[imgActive].url_img} />}
+                                {product.images && product.images.length > 0 && <img className='h-64 md:h-80' src={imageApi.watch+ product.images[imgActive].url_img} />}
                             </div>
                         </div>
 

@@ -16,9 +16,9 @@ const CommentItem = ({ comment }) => {
                         <RatingStar starNum={comment.stars} />
                     </div>
                 </div>
-                <footer className="mb-5 ml-14 text-sm text-gray-800 dark:text-gray-400"><p>{comment.content}</p></footer>
+                <footer className=" mb-1 ml-14 text-base text-gray-800 dark:text-gray-400"><p>{comment.title}</p></footer>
                 <div className='ml-14'>
-                    <p class="mb-2 text-gray-500 dark:text-gray-400">{comment.title}</p>
+                    <p class="mb-2 text-gray-500 dark:text-gray-400">{comment.content}</p>
                     <aside>
                         <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">0 people found this helpful</p>
                         <div class="flex items-center mt-3">
